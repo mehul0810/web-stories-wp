@@ -60,6 +60,11 @@ function StoriesView({
   const [activeDialog, setActiveDialog] = useState('');
   const [activeStory, setActiveStory] = useState(null);
 
+  const isActiveDeleteStoryDialog = useMemo(
+    () => activeDialog === ACTIVE_DIALOG_DELETE_STORY && activeStory,
+    [activeDialog, activeStory]
+  );
+
   useEffect(() => {
     if (!activeDialog) {
       setActiveStory(null);
@@ -149,7 +154,7 @@ function StoriesView({
   return (
     <>
       {ActiveView}
-      {activeDialog === ACTIVE_DIALOG_DELETE_STORY && activeStory && (
+      {isActiveDeleteStoryDialog && (
         <Dialog
           isOpen={true}
           contentLabel={__('Dialog to confirm deleting a story', 'web-stories')}
